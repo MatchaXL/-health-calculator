@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>健康计算器</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="calculator">
+        <header>
+            <h1>健康计算器</h1>
+            <p>全面计算您的健康指标</p>
+        </header>
+        
+        <nav class="tabs">
+            <button class="tab-button active" data-tab="basic-calc">基本计算</button>
+            <button class="tab-button" data-tab="body-metrics">身体指标</button>
+            <button class="tab-button" data-tab="metabolism">代谢计算</button>
+            <button class="tab-button" data-tab="nutrition">饮食营养</button>
+            <button class="tab-button" data-tab="exercise">运动消耗</button>
+        </nav>
+
+        <main>
+            <div id="content-area">
+                <!-- 基本计算 -->
+                <div id="basic-calc" class="tab-content active">
+                    <h2>基础计算器</h2>
+                    <p>提供基础数学计算功能</p>
+                    
+                    <div class="calculator-display">
+                        <div class="calculator-previous" id="calculator-previous"></div>
+                        <div class="calculator-current" id="calculator-current">0</div>
+                    </div>
+                    
+                    <div class="calculator-buttons">
+                        <button class="calculator-button clear double">AC</button>
+                        <button class="calculator-button operator">÷</button>
+                        <button class="calculator-button operator">×</button>
+                        <button class="calculator-button">7</button>
+                        <button class="calculator-button">8</button>
+                        <button class="calculator-button">9</button>
+                        <button class="calculator-button operator">-</button>
+                        <button class="calculator-button">4</button>
+                        <button class="calculator-button">5</button>
+                        <button class="calculator-button">6</button>
+                        <button class="calculator-button operator">+</button>
+                        <button class="calculator-button">1</button>
+                        <button class="calculator-button">2</button>
+                        <button class="calculator-button">3</button>
+                        <button class="calculator-button equals">=</button>
+                        <button class="calculator-button double">0</button>
+                        <button class="calculator-button">.</button>
+                    </div>
+                </div>
+                
+                <!-- 身体指标 -->
+                <div id="body-metrics" class="tab-content">
+                    <h2>身体指标计算</h2>
+                    
+                    <!-- 基础信息 -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="height">身高 (cm):</label>
+                            <input type="number" id="height" placeholder="请输入身高" min="100" max="250">
+                        <div class="error-message" id="height-error"></div>
+                    </div>
+                
+                        <div class="form-group">
+                             <label for="weight">体重 (kg):</label>
+                             <input type="number" id="weight" placeholder="请输入体重" min="20" max="200">
+                        <div class="error-message" id="weight-error"></div>
+                    </div>
+                </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                              <label for="age">年龄:</label>
+                              <input type="number" id="age" placeholder="请输入年龄" min="10" max="100">
+                              <div class="error-message" id="age-error"></div>
+                        </div>
+                
+                        <div class="form-group">
+                             <label for="gender">性别:</label>
+                             <select id="gender">
+                                <option value="male">男</option>
+                                <option value="female">女</option>
+                             </select>
+                        </div>
+                    </div>
+                    
+                    <!-- BMI计算 -->
+                    <h3 class="section-title">BMI计算</h3>
+                    <button id="calculate-bmi">计算BMI</button>
+                    <div class="result" id="bmi-result">
+                        <h4>BMI计算结果</h4>
+                        <div class="result-item">
+                            <p id="bmi-value"></p>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="bmi-progress"></div>
+                            </div>
+                            <p id="bmi-category"></p>
+                        </div>
+                    </div>
+                    
+                    <!-- 体脂率估算 -->
+                    <h3 class="section-title">体脂率估算</h3>
+                    <p class="optional-label">以下为可选输入项，提供更精确的体脂率估算</p>
+                    
+              <div class="optional-fields">
+                  <div class="form-row">
+                      <div class="form-group">
+                          <label for="waist">腰围 (cm):</label>
+                          <input type="number" id="waist" placeholder="请输入腰围" min="50" max="150">
+                      </div>
+                    
+                      <div class="form-group">
+                          <label for="neck">颈围 (cm):</label>
+                          <input type="number" id="neck" placeholder="请输入颈围" min="20" max="50">
+                      </div>
+                   </div>
+                
+                   <div class="form-group" id="hip-group" style="display: none;">
+                       <label for="hip">臀围 (cm):</label>
+                       <input type="number" id="hip" placeholder="请输入臀围" min="60" max="150">
+                   </div>
+               </div>
+                    <button id="calculate-body-fat">估算体脂率</button>
+                    <div class="result" id="body-fat-result">
+                        <h4>体脂率估算结果</h4>
+                        <div class="result-item">
+                            <p id="body-fat-value"></p>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="body-fat-progress"></div>
+                            </div>
+                            <p id="body-fat-method"></p>
+                            <p id="body-fat-category"></p>
+                        </div>
+                    </div>
+                    
+                    <!-- 肌肉量估算 -->
+                    <h3 class="section-title">肌肉量估算</h3>
+                    <button id="calculate-muscle">估算肌肉量</button>
+                    <div class="result" id="muscle-result">
+                        <h4>肌肉量估算结果</h4>
+                        <div class="result-item">
+                            <p id="muscle-mass-value"></p>
+                            <p id="muscle-mass-percentage"></p>
+                        </div>
+                    </div>
+                    
+                    <!-- 理想体重范围 -->
+                    <h3 class="section-title">理想体重范围</h3>
+                    <button id="calculate-ideal-weight">计算理想体重</button>
+                    <div class="result" id="ideal-weight-result">
+                        <h4>理想体重范围</h4>
+                        <div class="result-item">
+                            <p id="ideal-weight-value"></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 代谢计算 -->
+                <div id="metabolism" class="tab-content">
+                    <h2>代谢计算</h2>
+                    <p>计算基础代谢率(BMR)和每日总能量消耗(TDEE)</p>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="bmr-height">身高 (cm):</label>
+                            <input type="number" id="bmr-height" placeholder="请输入身高" min="100" max="250">
+                        </div>
+                        <div class="form-group">
+                            <label for="bmr-weight">体重 (kg):</label>
+                            <input type="number" id="bmr-weight" placeholder="请输入体重" min="20" max="200">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="bmr-age">年龄:</label>
+                            <input type="number" id="bmr-age" placeholder="请输入年龄" min="10" max="100">
+                        </div>
+                        <div class="form-group">
+                            <label for="bmr-gender">性别:</label>
+                            <select id="bmr-gender">
+                                <option value="male">男</option>
+                                <option value="female">女</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="activity-level">活动水平:</label>
+                        <select id="activity-level">
+                            <option value="1.2">久坐（很少或没有运动）</option>
+                            <option value="1.375">轻度活动（每周1-3天轻度运动）</option>
+                            <option value="1.55">中度活动（每周3-5天中度运动）</option>
+                            <option value="1.725">高度活动（每周6-7天高强度运动）</option>
+                            <option value="1.9">非常高度活动（体力劳动或每天训练）</option>
+                        </select>
+                    </div>
+                    <button id="calculate-metabolism">计算代谢率</button>
+                    <div class="result" id="metabolism-result">
+                        <h4>代谢计算结果</h4>
+                        <div class="result-item">
+                            <p id="bmr-value"></p>
+                            <p id="tdee-value"></p>
+                        </div>
+                    </div>
+                </div>
+                
+ 
+                </div>
+            </div>
+        </main>
+        
+        <footer>
+            <p>健康计算器开发组 © 2023</p>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+    
